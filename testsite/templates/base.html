@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link>
+    <title>Планировщик задач</title>
+    <style>
+        a {
+            color: #333; /* Change color on hover */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+
+        a:hover {
+            color: #806B63; /* Link color */
+        }
+        body {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            background-color: beige;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+	    margin-bottom: 20px;
+	    font-family: 'Great Vibes', cursive;
+        }
+
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .delete {
+            color: red;
+            cursor: pointer;
+        }
+        .authorization {
+                position: absolute;
+                top: 20px;
+            right: 20px;
+                background-color: #806B63;
+                color: #fff;
+            border-radius: 5px;
+                font-family: 'Great Vibes', cursive;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 33.33%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .brand {
+            font-weight: bold;
+            font-size: 220%;
+            margin-left: 37.5%;
+            color: #fff;
+        }
+
+        .site-header {
+          position: relative;
+          background-color: #806B63; }
+
+        .site-header__wrapper {
+          padding-top: 1rem;
+          padding-bottom: 1rem; }
+          @media (min-width: 600px) {
+            .site-header__wrapper {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-top: 0;
+              padding-bottom: 0; } }
+        @media (min-width: 600px) {
+          .nav__wrapper {
+            display: flex;
+            margin-right: 15%;
+          } }
+
+        @media (max-width: 599px) {
+          .nav__wrapper {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            left: 0;
+            z-index: -1;
+            background-color: #806B63;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out; }
+            .nav__wrapper.active {
+              visibility: visible;
+              opacity: 1;
+              transform: translateY(0); }
+        }
+
+        .nav__item a {
+            display: block;
+            padding: 1.5rem 1rem;
+            color: #000;
+        }
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #806B63;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .textcols_header {
+            white-space: nowrap;
+            font-size: 0;
+            margin-left: 7%;
+            width:100%;
+            position:relative;
+        }
+        .textcols-item_header {
+            white-space: normal;
+            display: inline-block;
+            width: 15.5%;
+            vertical-align: top;
+            background: #ffffff;
+            font-size: 34px;
+        }
+        .textcols_header .textcols-item_header:last-child {
+            margin-right: 0 ;
+        }
+        .textcols {
+            white-space: nowrap;
+            font-size: 0;
+            margin-left: 7%;
+            width:100%;
+            position:relative;
+        }
+        .textcols-item{
+            white-space: normal;
+            display: inline-block;
+            width: 15.5%;
+            vertical-align: top;
+            font-size: 34px;
+        }
+        .textcols .textcols-item:last-child {
+            margin-right: 0 ;
+        }
+        #zatemnenie {
+            background: rgba(102, 102, 102, 0.5);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        #okno {
+            width: 20%;
+            height: 70%;
+            text-align: center;
+            padding: 15px;
+            border: 3px solid #806B63;
+            border-radius: 10px;
+            color: #806B63;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            background: #fff;
+          }
+        #zatemnenie:target {display: block;}
+        .close {
+            display: inline-block;
+            border: 1px solid #806B63;
+            color: #806B63;
+            padding: 0 12px;
+            margin: 10px;
+            text-decoration: none;
+            background: #f2f2f2;
+            font-size: 14pt;
+            cursor:pointer;
+        }
+        .active-button {
+    background-color: #6d5a50;
+    border-color: #6d5a50;
+    color: #fff;
+}
+
+      .close:hover {background: #e6e6ff;}
+       hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+       }
+        .task {
+            margin-top: 150px; /* Reduced from 45% to 20px */
+        }
+        .task b {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #806B63;
+            color: #fff;
+            border: 2px solid #806B63;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            font-family: 'Great Vibes', cursive;
+        }
+        button:hover {
+            background-color: #6d5a50;
+            border-color: #6d5a50;
+            color: #fff;
+        }
+}
+
+    </style>
+</head>
+
+<body >
+    <header class="site-header">
+      <div class="wrapper site-header__wrapper">
+        <a class="brand">Планировщик задач</a>
+        <nav class="nav">
+          <ul class="nav__wrapper">
+            <li class="nav__item">
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button style="color: #000000; text-decoration:underline;font-size: 100%">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <button class="{% if request.resolver_match.url_name == 'login' %}active-button{% endif %}" style="color: #000000; text-decoration:underline;font-size: 100%">Login</button>
+                    </a>
+                    <a href="{% url 'register' %}">
+                        <button class="{% if request.resolver_match.url_name == 'register' %}active-button{% endif %}" style="color: #000000; text-decoration:underline;font-size: 100%">Register</button>
+                    </a>
+                {% endif %}
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="sidebar">
+        <div style="color:#fff; margin-top: 10%">User: {{user}}</div>
+        <div style="margin-top:45%">
+            <a href="{% url 'home' %}"> <button id="home" class="{% if request.resolver_match.url_name == 'home' %}active-button{% endif %}">  Домой </button></a>
+            <hr>
+            <a href="{% url 'add_task' %}"> <button id="addTask" class="{% if request.resolver_match.url_name == 'add_task' %}active-button{% endif %}">Добавить</button></a>
+            <hr>
+            <a href="{% url 'archive' %}"> <button id="doneTask" class="{% if request.resolver_match.url_name == 'archive' %}active-button{% endif %}"> Архив </button></a>
+            <hr>
+            <a href="{% url 'important' %}"> <button class="{% if request.resolver_match.url_name == 'important' %}active-button{% endif %}"> Самые важные </button></a>
+            <hr>
+            <a href="{% url 'urgent' %}"> <button class="{% if request.resolver_match.url_name == 'urgent' %}active-button{% endif %}">Срочные</button></a>
+            <hr>
+            <a href="{% url 'smart' %}"> <button class="{% if request.resolver_match.url_name == 'smart' %}active-button{% endif %}">Умная сортировка</button></a>
+            <hr>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

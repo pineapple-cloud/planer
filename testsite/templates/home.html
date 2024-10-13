@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="background-color:beige">
+    <div class="textcols_header">
+        <div class="textcols-item_header" style="width:35%">
+            <b>Название задачи</b>
+        </div>
+        <div class="textcols-item_header" style="width:20%">
+            <b>Тэг</b>
+        </div>
+        <div class="textcols-item_header">
+            <b>Важность</b>
+        </div>
+        <div class="textcols-item_header">
+            <b>Срочность</b>
+        </div>
+    </div>
+    {% for t in tasks %}
+    <div class="textcols">
+        <div class="textcols-item" style="width:35%">
+            <a href="{% url 'task' t.pk %}">
+            {{t.title}}
+            </a>
+        </div>
+        <div class="textcols-item" style="width:20%">
+             {{t.tag}}
+        </div>
+        <div class="textcols-item">
+             {{t.important}}
+        </div>
+        <div class="textcols-item">
+             {{t.urgent}}
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
